@@ -1,0 +1,54 @@
+/*判断一个整数是否为回文，不创建多余的内存空间
+*
+*/
+
+
+bool isPalindrome (int x) {
+    if (x<0)
+        return 0;
+    int tail = 99,count = 0,jian = 1,start,head,wei,temp;
+    while (x >= 10)
+    {
+        printf ("x is %d\n",x);
+        tail = x % 10;
+        start = x;
+        jian = 1;
+        count = 1;
+        while (start >= 10)
+        {
+            start = start / 10;
+            jian *= 10;
+            count++;
+        }
+        printf ("tail is %d ,start is %d \n",tail,start);
+        if (tail != start)
+            return 0;
+        x = (x - start*jian - tail) / 10;
+        if (x<jian / 100 && x != 0) //10011001这种情况
+        {
+            head = 1;
+            wei = 0;
+            start = x;
+            temp = x;
+            while (start >= 10)
+            {
+                start = start / 10;
+                head++;
+            }
+            head = count - head - 2;//前面的0的个数
+            printf ("head is %d \n",head);
+            while (temp % 10 == 0)//后面的0的个数
+            {
+                temp /= 10;
+                wei++;
+            }
+            x = temp;//记得改x的值
+            printf ("head is %d ,wei is %d \n",head,wei);
+            if (head != wei)
+                return 0;
+
+        }
+
+    }
+    return 1;
+}
